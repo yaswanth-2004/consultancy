@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Shopcategory from './Pages/Shopcategory';
 import Cart from './Pages/Cart';
 import Login from './Pages/Login';
-import Hero from './Components/Home/Home';
+import Hero from './Components/Home/Hero';
 
 
 function App() {

@@ -1,0 +1,187 @@
+/* AddEmployeeNew.css */
+
+/* Main container */
+.addemployee {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Form header */
+.addemployee h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid #f0f4f8;
+  text-align: center;
+}
+
+/* Error message */
+.addemployee .error {
+  background-color: #fee2e2;
+  color: #ef4444;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* Form layout - create columns on larger screens */
+@media (min-width: 768px) {
+  .addemployee-form-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  
+  /* Image upload in its own column */
+  .addemployee-img-container {
+    grid-column: 2;
+    grid-row: span 3;
+  }
+}
+
+/* Form field container */
+.addemployee-itemfield {
+  margin-bottom: 1.2rem;
+}
+
+/* Field labels */
+.addemployee-itemfield p {
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+/* Required indicator */
+.required {
+  color: #ef4444;
+  margin-left: 2px;
+}
+
+/* Input fields styling */
+.addemployee-itemfield input,
+.addemployee-selector {
+  width: 90%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  background-color: #f8fafc;
+}
+
+/* Input focus state */
+.addemployee-itemfield input:focus,
+.addemployee-selector:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background-color: #ffffff;
+}
+
+/* Custom styling for select element */
+.addemployee-selector {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 16px;
+  padding-right: 2.5rem;
+}
+
+/* Image upload styling */
+.image-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #f8fafc;
+  min-height: 200px;
+}
+
+.image-upload-container:hover {
+  border-color: #60a5fa;
+  background-color: #f0f7ff;
+}
+
+/* Image preview */
+.addemployee-img {
+  max-width: 150px;
+  max-height: 150px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+/* Upload text */
+.upload-text {
+  font-size: 0.9rem;
+  color: #4b5563;
+  margin-top: 0.5rem;
+  display: inline-block;
+  background-color: #e5e7eb;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.image-upload-container:hover .upload-text {
+  background-color: #60a5fa;
+  color: white;
+}
+
+/* Button styling */
+.addemployee-btn {
+  width: 100%;
+  padding: 0.85rem;
+  margin-top: 1.5rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.addemployee-btn:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.1);
+}
+
+.addemployee-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.addemployee-btn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Add subtle animation for better UX */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.addemployee-itemfield {
+  animation: fadeIn 0.3s ease-out forwards;
+}

@@ -4,6 +4,10 @@ import Sidebar from '../../Components/Sidebar/Sidebar';
 import { Routes, Route } from 'react-router-dom';
 import Addproduct from '../../Components/Addproduct/Addproduct';
 import Listproduct from '../../Components/Listproduct/Listproduct';
+import AddEmployee from '../../Components/AddEmployee';
+import ListEmployees from '../../Components/ListEmployees';
+import SentimentDashboard from '../../Components/SentimentDashboard';
+import SentimentAnalyzer from '../../Components/SentimentAnalyzer';
 
 const Admin = () => {
   return (
@@ -13,6 +17,10 @@ const Admin = () => {
         <Routes>
           <Route path='/addproduct' element={<Addproduct />} />
           <Route path='/listproduct' element={<Listproduct />} />
+          <Route path='/addemployee' element={<AddEmployee />} />
+          <Route path='/listemployees' element={<ListEmployees />} />
+          <Route path='/sentimentdashboard' element={<SentimentDashboard/>} />
+          <Route path='/sentimentanalyzer' element={<SentimentAnalyzer/>} />
         </Routes>
       </div>
     </div>

@@ -1,0 +1,21 @@
+.sentiment-dashboard {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .sentiment-dashboard table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .sentiment-dashboard th,
+  .sentiment-dashboard td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .sentiment-dashboard th {
+    background-color: #f5f5f5;
+  }
+  

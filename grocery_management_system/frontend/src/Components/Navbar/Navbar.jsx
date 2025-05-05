@@ -10,7 +10,7 @@ const Navbar = () => {
     <div className="navbar">
       <div className="nav">
         <img src={logo} alt="Logo" /> 
-        <p>Vinayaga moulders</p>
+        <p>Biospek Automation</p>
       </div>
       <div className="nav-menu">
         <li onClick={() => setMenu("shop")}>

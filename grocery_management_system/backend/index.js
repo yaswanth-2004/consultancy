@@ -487,7 +487,7 @@ app.post('/analyze-sentiment', async (req, res) => {
         const response = await fetch('https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english', {
             method: 'POST',
             headers: {
-                'Authorization': 'KEY',
+                'Authorization': 'Bearer KEY',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ inputs: text }),

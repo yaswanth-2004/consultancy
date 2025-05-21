@@ -26,11 +26,13 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 
-mongoose.connect(process.env.MONGODB_URL, {
-    serverSelectionTimeoutMS: 50000
+mongoose.connect('mongodb+srv://yaswanthraje2004:t5XRSiWFFrXACghp@cluster0.fkrcg1z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 })
-    .then(() => console.log("Database connected successfully"))
-    .catch(err => console.error("Database connection error:", err));
+.then(() => console.log('MongoDB Atlas connected'))
+.catch((err) => console.error('MongoDB connection error:', err));
+
 
 app.use('/images', express.static('upload/images'));
 

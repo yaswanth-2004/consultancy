@@ -11,6 +11,8 @@ const SentimentAnalyzer = () => {
     try {
       const response = await axios.post('http://localhost:5000/analyze-sentiment', { text });
       setResult(response.data);
+      console.log(text);
+      
     } catch (err) {
       console.error('Error analyzing sentiment:', err);
       setResult({ sentiment: 'Error', score: 0 });

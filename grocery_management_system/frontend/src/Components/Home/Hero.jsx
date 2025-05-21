@@ -125,27 +125,32 @@ const Hero = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/analyze-sentiment', { text });
-      const result = response.data;
+  const response = await axios.post('http://localhost:5000/analyze-sentiment', { text });
+  const result = response.data;
 
-      setSentimentResults((prev) => ({
-        ...prev,
-        [productId]: result
-      }));
+  setSentimentResults((prev) => ({
+    ...prev,
+    [productId]: result
+  }));
 
-      // Optional: Send feedback to admin server
-      await axios.post('http://localhost:5000/submit-feedback', {
-        productId,
-        text,
-        sentiment: result.sentiment,
-        score: result.score
-      });
+  if (result.score === undefined || result.score === null) {
+    alert('Sentiment score missing. Feedback not submitted.');
+    return;
+  }
 
-      alert('Feedback submitted successfully.');
-    } catch (err) {
-      console.error('Sentiment analysis failed:', err);
-      alert('Failed to analyze or submit feedback.');
-    }
+  await axios.post('http://localhost:5000/submit-feedback', {
+    productId,
+    text,
+    sentiment: result.sentiment,
+    score: result.score
+  });
+
+  alert('Feedback submitted successfully.');
+} catch (err) {
+  console.error('Sentiment analysis failed:', err);
+  alert('Failed to analyze or submit feedback.');
+}
+
   };
 
   const filteredProducts = products.filter((product) =>
@@ -237,17 +242,7 @@ const Hero = () => {
                   Analyze & Submit
                 </button>
                 
-                {sentimentResults[item._id] && (
-                  <div className="sentiment-result">
-                    <p>
-                      <strong>Sentiment:</strong> {sentimentResults[item._id].sentiment}
-                    </p>
-                    <p>
-                      <strong>Confidence:</strong>{' '}
-                      {(sentimentResults[item._id].score * 100).toFixed(2)}%
-                    </p>
-                  </div>
-                )}
+                
               </div>
             </div>
           ))}

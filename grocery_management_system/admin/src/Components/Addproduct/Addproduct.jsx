@@ -152,7 +152,7 @@ const Addproduct = () => {
                 Price per Unit
               </label>
               <div className="price-input-container">
-                <span className="price-symbol">$</span>
+                <span className="price-symbol">Rs.</span>
                 <input
                   value={productDetails.pricePerUnit}
                   onChange={changeHandler}

@@ -481,58 +481,84 @@ app.get('/search-employees', async (req, res) => {
 });
 
 app.post('/analyze-sentiment', async (req, res) => {
-    const { text } = req.body;
+  const { text } = req.body;
+  console.log('Received text:', text);
 
-    try {
-        const response = await fetch('https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer KEY',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ inputs: text }),
-        });
+  if (!text) {
+    return res.status(400).json({ message: 'No text provided' });
+  }
 
-        const result = await response.json();
-        console.log(result);
-        
-        // Return only one response
-        res.json({
-            sentiment: result[0][0].label,
-            score: result[0][0].score
-        });
+  try {
+    const response = await fetch(
+      'https://api-inference.huggingface.co/models/cardiffnlp/twitter-roberta-base-sentiment',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer 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',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ inputs: text }),
+      }
+    );
 
-    } catch (error) {
-        console.error("Sentiment analysis error:", error);
-        if (!res.headersSent) {
-            res.status(500).json({ message: "Failed to analyze sentiment" });
-        }
+    const result = await response.json();
+    console.log('HuggingFace response:', result);
+
+    if (!Array.isArray(result) || !Array.isArray(result[0])) {
+      return res.status(500).json({ message: 'Invalid response structure from model' });
     }
+
+    const best = result[0].reduce((prev, current) => {
+      return current.score > prev.score ? current : prev;
+    }, result[0][0]);
+
+    const labelMap = {
+      LABEL_0: 'Negative',
+      LABEL_1: 'Neutral',
+      LABEL_2: 'Positive',
+    };
+
+    res.json({
+      sentiment: labelMap[best.label] || 'Unknown',
+      score: best.score,
+    });
+
+  } catch (error) {
+    console.error('Error in sentiment analysis:', error);
+    res.status(500).json({ message: 'Sentiment analysis failed', error: error.message });
+  }
 });
+
 
 const feedbackSchema = new mongoose.Schema({
     productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product'},
     text: { type: String, required: true },
     sentiment: { type: String, required: true },
-    score: { type: Number, required: true },
+    score: { type: Number },
     timestamp: { type: Date, default: Date.now },
   });
   const Feedback = mongoose.model('Feedback', feedbackSchema);
   
   // Feedback submission route
-  app.post('/submit-feedback', async (req, res) => {
-    try {
-      const { productId, text, sentiment, score } = req.body;
-  
-      const newFeedback = await Feedback.create({ productId, text, sentiment, score });
-  
-      res.status(200).json({ message: 'Feedback submitted successfully', feedback: newFeedback });
-    } catch (error) {
-      console.error('Error saving feedback:', error);
-      res.status(500).json({ message: 'Failed to save feedback' });
+ app.post('/submit-feedback', async (req, res) => {
+  try {
+    console.log('Feedback received:', req.body);  // <--- Add this to debug
+
+    const { productId, text, sentiment, score } = req.body;
+
+    if (score === undefined) {
+      return res.status(400).json({ message: 'Score is missing' });
     }
-  });
-  
+
+    const newFeedback = await Feedback.create({ productId, text, sentiment, score });
+
+    res.status(200).json({ message: 'Feedback submitted successfully', feedback: newFeedback });
+  } catch (error) {
+    console.error('Error saving feedback:', error);
+    res.status(500).json({ message: 'Failed to save feedback' });
+  }
+});
+
   // Route to get all feedbacks (for admin)
   app.get('/get-feedbacks', async (req, res) => {
     try {

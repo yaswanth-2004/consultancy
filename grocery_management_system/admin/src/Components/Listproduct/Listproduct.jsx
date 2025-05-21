@@ -239,7 +239,7 @@ const Listproduct = () => {
                       ) : (
                         <>
                           <td>{product.name}</td>
-                          <td className="price-cell">${product.pricePerUnit}</td>
+                          <td className="price-cell">Rs.{product.pricePerUnit}</td>
                           <td>
                             <span className={`category-badge ${product.category}`}>
                               {product.category}

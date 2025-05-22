@@ -9,7 +9,7 @@ const ListEmployees = () => {
 
   const fetchInfo = async () => {
     try {
-      const response = await fetch('http://localhost:5000/allemployees');
+      const response = await fetch('https://consultancy-kmgp.onrender.com/allemployees');
       const data = await response.json();
       setAllEmployees(data);
     } catch (error) {
@@ -26,7 +26,7 @@ const ListEmployees = () => {
     
     if (confirmDeletion) {
       try {
-        await fetch('http://localhost:5000/removeemployee', {
+        await fetch('https://consultancy-kmgp.onrender.com/removeemployee', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -54,7 +54,7 @@ const ListEmployees = () => {
         salary: employeeDetails.salary,
         joinDate: employeeDetails.joinDate,
       };
-      await fetch('http://localhost:5000/updateemployee', {
+      await fetch('https://consultancy-kmgp.onrender.com/updateemployee', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

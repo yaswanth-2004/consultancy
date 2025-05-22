@@ -11,7 +11,7 @@ const Listproduct = () => {
   const fetchInfo = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/allproducts');
+      const response = await fetch('https://consultancy-kmgp.onrender.com/allproducts');
       const data = await response.json();
       setAllProducts(data);
       setError(null);
@@ -32,7 +32,7 @@ const Listproduct = () => {
     
     if (confirmDeletion) {
       try {
-        await fetch('http://localhost:5000/removeproduct', {
+        await fetch('https://consultancy-kmgp.onrender.com/removeproduct', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -59,7 +59,7 @@ const Listproduct = () => {
         size: productDetails.size || 'defaultSize',
       };
       
-      await fetch('http://localhost:5000/updateproduct', {
+      await fetch('https://consultancy-kmgp.onrender.com/updateproduct', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

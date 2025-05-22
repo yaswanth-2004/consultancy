@@ -40,7 +40,7 @@ const AddEmployee = () => {
     
         try {
             setLoading(true);
-            const response = await fetch("http://localhost:5000/addemployee", {
+            const response = await fetch("https://consultancy-kmgp.onrender.com/addemployee", {
                 method: "POST",
                 body: formData,
             });

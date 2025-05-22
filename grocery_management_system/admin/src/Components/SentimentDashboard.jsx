@@ -9,7 +9,7 @@ const SentimentDashboard = () => {
   useEffect(() => {
     const fetchFeedbacks = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/get-feedbacks');
+        const res = await axios.get('https://consultancy-kmgp.onrender.com/get-feedbacks');
         setFeedbacks(res.data);
         setLoading(false);
       } catch (error) {

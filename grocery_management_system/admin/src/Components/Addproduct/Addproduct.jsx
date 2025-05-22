@@ -64,7 +64,7 @@ const Addproduct = () => {
       let formData = new FormData();
       formData.append('product', image);
       
-      const imageResponse = await fetch('http://localhost:5000/upload', {
+      const imageResponse = await fetch('https://consultancy-kmgp.onrender.com/upload', {
         method: 'POST',
         headers: { Accept: 'application/json' },
         body: formData,
@@ -75,7 +75,7 @@ const Addproduct = () => {
       if (imageData.success) {
         const product = {...productDetails, image: imageData.image_url};
         
-        const productResponse = await fetch('http://localhost:5000/addproduct', {
+        const productResponse = await fetch('https://consultancy-kmgp.onrender.com/addproduct', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(product),

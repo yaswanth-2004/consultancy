@@ -9,7 +9,7 @@ const path = require("path");
 const cors = require("cors");
 
 const allowedOrigins = [
-    'https://admincon.netlify.app/',
+    'https://admincon.netlify.app',
     ...Array.from({ length: 65535 }, (_, i) => `http://localhost:${i + 1}`)
 ];
 

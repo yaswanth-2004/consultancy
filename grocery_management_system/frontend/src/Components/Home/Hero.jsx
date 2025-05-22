@@ -176,7 +176,12 @@ const Hero = () => {
         <div className="hero-item">
           {filteredProducts.map((item) => (
             <div key={item._id} className="product-item">
-              <img src={item.image} alt={item.name} className="product-image" />
+              <img
+  src={`https://consultancy-kmgp.onrender.com/${item.image}`}
+  alt={item.name}
+  className="product-image"
+/>
+
               <span className="product-name">{item.name}</span>
               
               <div className="product-details">

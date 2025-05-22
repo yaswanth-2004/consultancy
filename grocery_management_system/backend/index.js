@@ -26,7 +26,7 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 
-mongoose.connect('mongodb+srv://yaswanthraje2004:t5XRSiWFFrXACghp@cluster0.fkrcg1z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+mongoose.connect('mongodb+srv://yaswanthraje2004:t5XRSiWFFrXACghp@cluster0.fkrcg1z.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })

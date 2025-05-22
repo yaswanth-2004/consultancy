@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
 
 const upload = multer({ storage: storage });
 
-app.post("/upload", upload.single('product'), (req, res) => {
+app.post("/upload", upload.single('image'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ success: false, message: "No file uploaded" });
     }

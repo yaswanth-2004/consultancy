@@ -27,7 +27,7 @@ const Hero = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/allproducts');
+        const response = await fetch('https://consultancy-kmgp.onrender.com/allproducts');
         if (!response.ok) throw new Error('Failed to fetch products');
         const data = await response.json();
         setProducts(data);
@@ -125,7 +125,7 @@ const Hero = () => {
     }
 
     try {
-  const response = await axios.post('http://localhost:5000/analyze-sentiment', { text });
+  const response = await axios.post('https://consultancy-kmgp.onrender.com/analyze-sentiment', { text });
   const result = response.data;
 
   setSentimentResults((prev) => ({
@@ -138,7 +138,7 @@ const Hero = () => {
     return;
   }
 
-  await axios.post('http://localhost:5000/submit-feedback', {
+  await axios.post('https://consultancy-kmgp.onrender.com/submit-feedback', {
     productId,
     text,
     sentiment: result.sentiment,

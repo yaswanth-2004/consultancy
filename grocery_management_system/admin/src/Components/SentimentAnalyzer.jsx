@@ -9,7 +9,7 @@ const SentimentAnalyzer = () => {
   const analyzeSentiment = async () => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/analyze-sentiment', { text });
+      const response = await axios.post('https://consultancy-kmgp.onrender.com/analyze-sentiment', { text });
       setResult(response.data);
       console.log(text);
       

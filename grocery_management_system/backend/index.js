@@ -296,7 +296,7 @@ app.post('/addemployee', upload.single('image'), async (req, res) => {
             return res.status(400).json({ success: false, message: "Invalid department" });
         }
 
-        const image_url = `http://localhost:5000/uploads/${req.file.filename}`;
+        const image_url = `https://consultancy-kmgp.onrender.com/uploads/${req.file.filename}`;
 
         const newEmployee = new Employee({
             name,

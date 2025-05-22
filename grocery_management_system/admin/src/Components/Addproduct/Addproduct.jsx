@@ -34,21 +34,48 @@ const Addproduct = () => {
   };
 
   const addProduct = async () => {
-    // Validation
-    if (!productDetails.name || !productDetails.category || !productDetails.pricePerUnit || !productDetails.size || !image) {
-      setError("Please fill all fields and upload an image");
-      return;
-    }
-    
-    setLoading(true);
-    setError(null);
-    
-    try {
-      // Simulating the API call for this UI demo
-      setTimeout(() => {
-        setLoading(false);
+  // Validation
+  if (!productDetails.name || !productDetails.category || !productDetails.pricePerUnit || !productDetails.size || !image) {
+    setError("Please fill all fields and upload an image");
+    return;
+  }
+
+  setLoading(true);
+  setError(null);
+  setSuccess(false);
+
+  try {
+    // Upload image
+    let formData = new FormData();
+    formData.append('image', image);  // Change 'product' to 'image' if backend expects this key
+
+    const imageResponse = await fetch('https://consultancy-kmgp.onrender.com/upload', {
+      method: 'POST',
+      // Do NOT set Content-Type header when sending FormData; browser does it
+      body: formData,
+    });
+
+    const imageData = await imageResponse.json();
+
+    if (imageData.success && imageData.image_url) {
+      // Convert price and size to numbers before sending
+      const product = {
+        ...productDetails,
+        image: imageData.image_url,
+        pricePerUnit: Number(productDetails.pricePerUnit),
+        size: Number(productDetails.size),
+      };
+
+      const productResponse = await fetch('https://consultancy-kmgp.onrender.com/addproduct', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(product),
+      });
+
+      const productData = await productResponse.json();
+
+      if (productData.success) {
         setSuccess(true);
-        // Reset form
         setProductDetails({
           name: "",
           image: "",
@@ -57,55 +84,19 @@ const Addproduct = () => {
           size: "",
         });
         setImage(null);
-      }, 1500);
-      
-      // In a real implementation, you would use your actual API calls:
-      
-      let formData = new FormData();
-      formData.append('product', image);
-      
-      const imageResponse = await fetch('https://consultancy-kmgp.onrender.com/upload', {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: formData,
-      });
-      
-      const imageData = await imageResponse.json();
-      
-      if (imageData.success) {
-        const product = {...productDetails, image: imageData.image_url};
-        
-        const productResponse = await fetch('https://consultancy-kmgp.onrender.com/addproduct', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(product),
-        });
-        
-        const productData = await productResponse.json();
-        
-        if (productData.success) {
-          setSuccess(true);
-          setProductDetails({
-            name: "",
-            image: "",
-            category: "",
-            pricePerUnit: "",
-            size: "",
-          });
-          setImage(null);
-        } else {
-          setError("Failed to add product");
-        }
       } else {
-        setError("Failed to upload image");
+        setError(productData.message || "Failed to add product");
       }
-      
-      
-    } catch (err) {
-      setError("An error occurred. Please try again.");
-      setLoading(false);
+    } else {
+      setError(imageData.message || "Failed to upload image");
     }
-  };
+  } catch (err) {
+    setError("An error occurred. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="addproduct-container">
